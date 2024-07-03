@@ -11,7 +11,7 @@ class SendShares extends Command
      *
      * @var string
      */
-    protected $signature = 'app:send-shares';
+    protected $signature = 'shares:send';
 
     /**
      * The console command description.
