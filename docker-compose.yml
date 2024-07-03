@@ -1,0 +1,57 @@
+services:
+    nginx:
+        image: nginx:latest
+        volumes:
+            - ./:/var/www/
+            - ./_docker/images/nginx/conf.d/:/etc/nginx/conf.d/
+        ports:
+            - "8000:80"
+        container_name: task_nginx
+        depends_on:
+            - php
+    php:
+        build:
+            context: .
+            dockerfile: ./_docker/images/php/Dockerfile
+        volumes:
+            - ./:/var/www/
+        depends_on:
+            - mysql
+        container_name: task_php
+    mysql:
+        image: mysql:8.2.0
+        restart: always
+        volumes:
+            - ./_docker/data/mysql:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --log_bin_trust_function_creators=1
+        env_file:
+            - ./_docker/images/mysql/mysql.env
+        container_name: task_mysql
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: task_pma
+        links:
+            - mysql
+        environment:
+            PMA_HOST: mysql
+            PMA_PORT: 3306
+            PMA_ARBITRARY: 1
+            UPLOAD_LIMIT: 100000000
+        restart: always
+        ports:
+            - "8081:80"
+    redis:
+        image: redis:latest
+        restart: always
+        ports:
+            - "6379:6379"
+        volumes:
+            - ./_docker/data/redis:/data
+            # - /path/to/local/redis.conf:/usr/local/etc/redis/redis.conf
+        environment:
+            REDIS_PASSWORD: 12345
+            REDIS_PORT: 6379
+            REDIS_DATABASES: 16
+        container_name: task_redis
