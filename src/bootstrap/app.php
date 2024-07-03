@@ -13,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withSchedule(function (Schedule $schedule) {
-        $schedule->call(new SendBirthdayMail)->twiceDailyAt(1, 19);
+        $schedule->call(new SendBirthdayMail())->twiceDailyAt(1, 19);
     })
     ->withMiddleware(function (Middleware $middleware) {
         //

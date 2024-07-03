@@ -6,6 +6,7 @@ use App\Models\Share;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class SendSharesToClient extends Notification implements ShouldQueue
 {
@@ -31,18 +32,17 @@ class SendSharesToClient extends Notification implements ShouldQueue
         return ['mail'];
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
+        /**
+     * Get the mail representation of the notification.
      */
-    public function toArray(object $notifiable): array
+    public function toMail(object $notifiable): MailMessage
     {
-        return [
-            'name' => $this->share->name,
-            'title' => $this->share->title,
-            'description' => $this->share->description,
-            'discount' => $this->share->discount,
-        ];
+        dd($this);
+        return (new MailMessage)
+            ->subject('Акций и Скидки от UZINFOCOM')
+            ->greeting('Вас приветсвует UZINFOCOM!')
+            ->line($this->share->name)
+            ->line($this->share->description)
+            ->line($this->share->title);
     }
 }

@@ -40,16 +40,4 @@ class SendBirthdayMail extends Notification implements ShouldQueue
             ->line('UZINFOCOM поздравляет вас с днем рождения!')
             ->line('Спасибо что пользуетесь нашим приложением!');
     }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(object $notifiable): array
-    {
-        return [
-            //
-        ];
-    }
 }

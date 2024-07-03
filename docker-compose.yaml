@@ -6,10 +6,6 @@ services:
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
       - ./src:/var/www/laravel
-    depends_on:
-      - php-ras
-      - mysql-ras
-      - phpmyadmin
   php-ras:
     build:
       context: dockerfiles
@@ -38,7 +34,7 @@ services:
     ports:
       - "6380:6379"
     volumes:
-      - ./redisdata:/data
+      - ./redisdata:/var/www/data
     deploy:
       resources:
         limits:
@@ -66,10 +62,3 @@ services:
     restart: unless-stopped
     tty: true
     stdin_open: true
-
-  composer:
-    build:
-      context: dockerfiles
-      dockerfile: composer.Dockerfile
-    volumes:
-      - ./src:/var/www/laravel

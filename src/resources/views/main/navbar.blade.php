@@ -15,7 +15,7 @@
                     <a class="nav-link" href="{{ route('clients.create') }}">Добавить клиента</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Акций</a>
+                    <a class="nav-link" href="{{ route('shares.create') }}">Создать акций</a>
                 </li>
             </ul>
         </div>

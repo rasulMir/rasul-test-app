@@ -1,17 +1,23 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ShareController;
 use App\Models\Client;
 use App\Models\Share;
 use App\Notifications\SendBirthdayMail;
+use App\Notifications\SendSharesToClient;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     $client = Client::find(1);
-//     $client->notify(new SendBirthdayMail());
+// shares
+Route::get('/shares/create', [ShareController::class, 'create'])
+    ->name('shares.create');
+Route::post('/shares/store', [ShareController::class, 'store'])
+    ->name('shares.store');
+Route::get('/shares', [ShareController::class, 'index'])
+    ->name('shares.index');
+// shares
 
-//     Share::factory(1)->create();
-// });
+// clients
 Route::get('/', [ClientController::class, 'index'])
     ->name('clients.index');
 Route::get('/clients/create', [ClientController::class, 'create'])
@@ -24,3 +30,4 @@ Route::get('/clients/{client}', [ClientController::class, 'edit'])
     ->name('clients.edit');
 Route::patch('/clients/{client}/update', [ClientController::class, 'update'])
     ->name('clients.update');
+// clients
