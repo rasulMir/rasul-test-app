@@ -2,10 +2,6 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ShareController;
-use App\Models\Client;
-use App\Models\Share;
-use App\Notifications\SendBirthdayMail;
-use App\Notifications\SendSharesToClient;
 use Illuminate\Support\Facades\Route;
 
 // shares

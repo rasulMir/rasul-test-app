@@ -12,9 +12,6 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withSchedule(function (Schedule $schedule) {
-        $schedule->call(new SendBirthdayMail())->twiceDailyAt(1, 19);
-    })
     ->withMiddleware(function (Middleware $middleware) {
         //
     })
