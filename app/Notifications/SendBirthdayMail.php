@@ -26,20 +26,21 @@ class SendBirthdayMail extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['mail'];
     }
 
     /**
      * Get the mail representation of the notification.
      */
-    // public function toMail(object $notifiable): MailMessage
-    // {
-    //     return (new MailMessage)
-    //         ->subject('С днем рождения ' . $notifiable->name . ' ' . $notifiable->surname)
-    //         ->greeting('Вас приветсвует UZINFOCOM!')
-    //         ->line('UZINFOCOM поздравляет вас с днем рождения!')
-    //         ->line('Спасибо что пользуетесь нашим приложением!');
-    // }
+    public function toMail(object $notifiable): MailMessage
+    {
+        dd('ras');
+        return (new MailMessage)
+            ->subject('С днем рождения ' . $notifiable->name . ' ' . $notifiable->surname)
+            ->greeting('Вас приветсвует UZINFOCOM!')
+            ->line('UZINFOCOM поздравляет вас с днем рождения!')
+            ->line('Спасибо что пользуетесь нашим приложением!');
+    }
 
 
     public function toArray(object $notifiable): array
