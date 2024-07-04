@@ -29,10 +29,10 @@ class SendSharesToClient extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['database'];
     }
 
-        /**
+    /**
      * Get the mail representation of the notification.
      */
     public function toMail(object $notifiable): MailMessage
@@ -44,5 +44,16 @@ class SendSharesToClient extends Notification implements ShouldQueue
             ->line($this->share->name)
             ->line($this->share->description)
             ->line($this->share->title);
+    }
+
+    public function toArray(object $notifiable): array
+    {
+        return [
+            'greeting' => 'Вас приветсвует UZINFOCOM!',
+            'title' => 'Акций и Скидки от UZINFOCOM',
+            'name' => $this->share->name,
+            'description' => $this->share->description,
+            'title' => $this->share->title,
+        ];
     }
 }
