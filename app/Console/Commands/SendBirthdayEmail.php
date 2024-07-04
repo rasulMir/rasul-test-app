@@ -2,9 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\SendBirthdayMail;
 use App\Models\Client;
-use App\Notifications\SendBirthdayMail;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class SendBirthdayEmail extends Command
 {
@@ -32,7 +33,7 @@ class SendBirthdayEmail extends Command
 
         foreach ($clients as $client) {
             if ($date->month === $client->birth_date->month && $date->day === $client->birth_date->day) {
-                $client->notify(new SendBirthdayMail());
+                Mail::to($client->email)->queue(new SendBirthdayMail($client));
             }
         }
     }

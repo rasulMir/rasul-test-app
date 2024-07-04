@@ -2,12 +2,15 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\SendSharesMail;
 use App\Models\Client;
 use App\Models\Share;
-use App\Notifications\SendBirthdayMail;
-use App\Notifications\SendSharesToClient;
+// use App\Notifications\SendBirthdayMail;
+// use App\Notifications\SendSharesToClient;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Mail;
+
+// use Illuminate\Support\Facades\Notification;
 
 class SendShares extends Command
 {
@@ -35,7 +38,7 @@ class SendShares extends Command
         $clients = Client::all();
 
         foreach ($shares as $share) {
-            Notification::send($clients, new SendSharesToClient($share));            
+            Mail::to($clients)->queue(new SendSharesMail($share));
         }
     }
 }

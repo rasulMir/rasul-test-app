@@ -2,10 +2,10 @@
 
 namespace App\Observers;
 
+use App\Mail\SendSharesMail;
 use App\Models\Client;
 use App\Models\Share;
-use App\Notifications\SendSharesToClient;
-use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Mail;
 
 class ShareObserver
 {
@@ -16,6 +16,6 @@ class ShareObserver
     {
         $clients = Client::all();
 
-        Notification::send($clients, new SendSharesToClient($share));
+        Mail::to($clients)->queue(new SendSharesMail($share));
     }
 }
